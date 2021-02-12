@@ -20,6 +20,9 @@ function buildVertex(scene) {
         src.push("#extension GL_EXT_frag_depth : enable");
     }
 
+    src.push("precision mediump float;");
+    src.push("precision mediump int;");
+
     src.push("uniform int renderPass;");
 
     src.push("attribute vec3 position;");
