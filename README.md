@@ -33,5 +33,5 @@ Test by drag-rotating with your finger.
 
 https://xeokit.github.io/xeokit-perf-test/test3/
 
-* [Unsuccessful] 
+* [?] 
 
