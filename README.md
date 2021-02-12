@@ -13,6 +13,8 @@ in case the perf regression is due to buggy high-precision support.
 
 https://xeokit.github.io/xeokit-perf-test/test1/
 
+* [Unsuccessful]
+
 ### 2. Remove all image buffer allocations
 
 xeokit allocates five different image frame buffers, to support picking and post-effects. This test disables the creation 
@@ -21,4 +23,6 @@ of those buffers, in case IOS is handling memory pressure ungracefully.
 Test by drag-rotating with your finger.  
 
 https://xeokit.github.io/xeokit-perf-test/test2/
+
+* [Awaiting results] 
 
