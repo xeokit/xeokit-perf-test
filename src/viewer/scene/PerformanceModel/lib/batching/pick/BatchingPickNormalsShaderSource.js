@@ -101,8 +101,8 @@ function buildFragment(scene) {
     // src.push("precision highp float;");
     // src.push("precision highp int;");
     // src.push("#else");
-    // src.push("precision mediump float;");
-    // src.push("precision mediump int;");
+    src.push("precision mediump float;");
+    src.push("precision mediump int;");
     // src.push("#endif");
     if (scene.logarithmicDepthBufferEnabled && WEBGL_INFO.SUPPORTED_EXTENSIONS["EXT_frag_depth"]) {
         src.push("uniform float logDepthBufFC;");
