@@ -55,6 +55,20 @@ for (let ii = 0; ii < numVertexAttribs; ii++) {
 
 Test by drag-rotating with your finger.
 
-[https://xeokit.github.io/xeokit-perf-test/test4/](https://xeokit.github.io/xeokit-perf-test/test3/)
+[https://xeokit.github.io/xeokit-perf-test/test4/](https://xeokit.github.io/xeokit-perf-test/test4/)
+
+* [?]
+
+### 5. Disable WebGL depth mask
+
+Maybe Safari doesn't like how xeokit enables writing to depth buffer before each frame? 
+
+````javascript
+gl.depthMask(true);
+````
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test5/](https://xeokit.github.io/xeokit-perf-test/test5/)
 
 * [?]
