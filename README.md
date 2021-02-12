@@ -35,3 +35,26 @@ Test by drag-rotating with your finger.
 
 * [?] 
 
+### 4. Disable default VBO binds after each frame
+
+Maybe Safari doesn't like the way we disable all the attribute arrays after each frame?
+
+````javascript
+const numTextureUnits = WEBGL_INFO.MAX_TEXTURE_UNITS;
+for (let ii = 0; ii < numTextureUnits; ii++) {
+   gl.activeTexture(gl.TEXTURE0 + ii);
+}
+gl.bindTexture(gl.TEXTURE_CUBE_MAP, null);
+gl.bindTexture(gl.TEXTURE_2D, null);
+
+const numVertexAttribs = WEBGL_INFO.MAX_VERTEX_ATTRIBS; // Fixes https://github.com/xeokit/xeokit-sdk/issues/174
+for (let ii = 0; ii < numVertexAttribs; ii++) {
+   gl.disableVertexAttribArray(ii);
+}
+````
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test3/](https://xeokit.github.io/xeokit-perf-test/test3/)
+
+* [?]
