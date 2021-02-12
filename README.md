@@ -11,7 +11,7 @@ We'll add more experiments here as we think of things to try.
 xeokit allows the browser to select which level of precision to support in shaders. In this test, we force medium-precision, 
 in case the perf regression is due to buggy high-precision support.
 
-https://xeokit.github.io/xeokit-perf-test/test1/
+[https://xeokit.github.io/xeokit-perf-test/test1/](https://xeokit.github.io/xeokit-perf-test/test1/)
 
 * [Unsuccessful]
 
@@ -22,7 +22,7 @@ of those buffers, in case IOS is handling memory pressure ungracefully.
 
 Test by drag-rotating with your finger.  
 
-https://xeokit.github.io/xeokit-perf-test/test2/
+[https://xeokit.github.io/xeokit-perf-test/test2/](https://xeokit.github.io/xeokit-perf-test/test2/)
 
 * [Unsuccessful] 
 
@@ -31,7 +31,7 @@ https://xeokit.github.io/xeokit-perf-test/test2/
 
 Test by drag-rotating with your finger.
 
-https://xeokit.github.io/xeokit-perf-test/test3/
+[https://xeokit.github.io/xeokit-perf-test/test3/](https://xeokit.github.io/xeokit-perf-test/test3/)
 
 * [?] 
 
