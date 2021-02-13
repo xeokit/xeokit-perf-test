@@ -72,3 +72,17 @@ Test by drag-rotating with your finger.
 [https://xeokit.github.io/xeokit-perf-test/test5/](https://xeokit.github.io/xeokit-perf-test/test5/)
 
 * [?]
+
+### 6. Smaller geometry batch sizes
+
+Maybe Safari doesn't like how xeokit allocates large arrays on the GPU for batched geometry rendering. Let's try making those arrays shorter.
+
+````javascript
+gl.depthMask(true);
+````
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test6/](https://xeokit.github.io/xeokit-perf-test/test6/)
+
+* [?]
