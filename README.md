@@ -61,7 +61,7 @@ Test by drag-rotating with your finger.
 
 ### 5. Disable WebGL depth mask
 
-Maybe Safari doesn't like how xeokit enables writing to depth buffer before each frame? 
+Maybe Safari doesn't like how xeokit enables the depth mask before each frame? Let's try disabling that. 
 
 ````javascript
 gl.depthMask(true);
