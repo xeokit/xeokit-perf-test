@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>XKT model with double-precision geometry</title>
+    <link href="../css/styles.css" type="text/css" rel="stylesheet"/>
+
+    <style>
+
+        #myCanvas {
+            background: lightblue;
+        }
+
+        #myNavCubeCanvas {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            bottom: 50px;
+            right: 10px;
+            z-index: 200000;
+        }
+
+        .camera-pivot-marker {
+            color: #ffffff;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 15px;
+            border: 2px solid #ebebeb;
+            background: black;
+            visibility: hidden;
+            box-shadow: 5px 5px 15px 1px #000000;
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<canvas id="myCanvas"></canvas>
+
+<div id="info" style="visibility:visible">
+    <h1>XKT model with double-precision geometry</h1><br>
+    <p id="time"></p>
+</div>
+
+</body>
+
+<script type="module">
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Import the modules we need for this example
+    //------------------------------------------------------------------------------------------------------------------
+
+    import {Viewer} from "./src/viewer/Viewer.js";
+    import {XKTLoaderPlugin} from "./src/plugins/XKTLoaderPlugin/XKTLoaderPlugin.js";
+    import {DirLight} from "./src/viewer/scene/lights/DirLight.js";
+    import {AmbientLight} from "./src/viewer/scene/lights/AmbientLight.js";
+    import {PhongMaterial} from "./src/viewer/scene/materials/PhongMaterial.js";
+    import {Mesh} from "./src/viewer/scene/mesh/Mesh.js";
+    import {ReadableGeometry} from "./src/viewer/scene/geometry/ReadableGeometry.js";
+    import {buildPlaneGeometry} from "./src/viewer/scene/geometry/builders/buildPlaneGeometry.js";
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Create a Viewer with a logarithmic depth buffer
+    //------------------------------------------------------------------------------------------------------------------
+
+    const viewer = new Viewer({
+        canvasId: "myCanvas",
+        transparent: true,
+        logarithmicDepthBufferEnabled: false // <<--- Disable logarithmic depth buffer
+    });
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Configure Camera
+    //
+    // Set a huge distance for the Camera's far clipping plane
+    //------------------------------------------------------------------------------------------------------------------
+
+    viewer.camera.eye = [1841341.4943041557, 2435.7015793568917, -5182009.256037191];
+    viewer.camera.look = [1842215.561857325, -98.53293939639616, -5177009.767748618];
+    viewer.camera.up = [0.07693555158566205, 0.8946686100264034, 0.4400556773132614];
+
+    viewer.camera.perspective.near = 1.0;
+    viewer.camera.perspective.far = 10000000; // 10000km
+
+    viewer.camera.ortho.near = 1.0;
+    viewer.camera.ortho.far = 10000000; // 10000km
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Configure CameraControl
+    //
+    // Show a dot about the pivot point, whenever we orbit the Camera
+    //------------------------------------------------------------------------------------------------------------------
+
+    viewer.cameraControl.followPointer = true;
+
+    const pivotElement = document.createRange().createContextualFragment("<div class='camera-pivot-marker'></div>").firstChild;
+    document.body.appendChild(pivotElement);
+    viewer.cameraControl.pivotElement = pivotElement;
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Tweak edges color
+    //------------------------------------------------------------------------------------------------------------------
+
+    viewer.scene.edgeMaterial.edgeColor = [.3, .3, .3];
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Replace the Scene's default lights
+    //------------------------------------------------------------------------------------------------------------------
+
+    viewer.scene.clearLights();
+
+    new AmbientLight(viewer.scene, {
+        color: [1, 1, 1],
+        intensity: 0.2
+    });
+
+    new DirLight(viewer.scene, {
+        dir: [0.8, -0.8, 0.8],
+        color: [1.0, 1.0, 1.0],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new DirLight(viewer.scene, {
+        dir: [0.0, -0.8, -0.8],
+        color: [0.8, 0.8, 1.0],
+        intensity: 0.4,
+        space: "world"
+    });
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Create a ground plane
+    //------------------------------------------------------------------------------------------------------------------
+
+    new Mesh(viewer.scene, {
+        geometry: new ReadableGeometry(viewer.scene, buildPlaneGeometry({
+            xSize: 15000,
+            zSize: 15000
+        })),
+        material: new PhongMaterial(viewer.scene, {
+            diffuse: [0.3, 0.5, 0.1],
+            // alpha: 0.0,
+            alphaMode: "opaque"
+        }),
+        position: [1842761.9375, -5.53293939639616, -5174733.5],
+        collidable: false
+    });
+
+    //----------------------------------------------------------------------------------------------------------------------
+    // Load a couple of CityGML models from XKT
+    //----------------------------------------------------------------------------------------------------------------------
+
+    const xktLoader = new XKTLoaderPlugin(viewer, {
+        maxGeometryBatchSize: 30000
+    });
+
+    const t0 = performance.now();
+
+    document.getElementById("time").innerHTML = "Loading models..";
+
+    xktLoader.load({
+        id: "lyon1",
+        src: "./../models/xkt/Lyon/Lyon1.xkt",
+        edges: true, saoEnabled: true
+    }).on("loaded", () => {
+
+        xktLoader.load({
+            id: "lyon2",
+            src: "./../models/xkt/Lyon/Lyon2.xkt",
+            edges: true, saoEnabled: true
+        }).on("loaded", () => {
+
+            let numEntities = 0;
+
+            for (let id in viewer.scene.models) {
+                const model = viewer.scene.models[id];
+                numEntities += model.numEntities;
+            }
+
+            const t1 = performance.now();
+
+            document.getElementById("time").innerHTML = "Loaded all models in " + Math.floor((t1 - t0)) / 1000 + " seconds<br>Objects: " + numEntities;
+        });
+    });
+
+</script>
+</html>
