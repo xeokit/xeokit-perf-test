@@ -77,12 +77,19 @@ Test by drag-rotating with your finger.
 
 Maybe Safari doesn't like how xeokit allocates large arrays on the GPU for batched geometry rendering. Let's try making those arrays shorter.
 
-````javascript
-gl.depthMask(true);
-````
-
 Test by drag-rotating with your finger.
 
 [https://xeokit.github.io/xeokit-perf-test/test6/](https://xeokit.github.io/xeokit-perf-test/test6/)
+
+* [?]
+
+
+### 7. Disable all extensions
+
+This will look terrible, but if it renders efficiently it means that one of the WebGL1 extensions is slowing things down.
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test7/](https://xeokit.github.io/xeokit-perf-test/test7/)
 
 * [?]
