@@ -92,4 +92,22 @@ Test by drag-rotating with your finger.
 
 [https://xeokit.github.io/xeokit-perf-test/test7/](https://xeokit.github.io/xeokit-perf-test/test7/)
 
+### 8. Use default WebGL context attributes
+
+Maybe antialiasing is the culprit? Who knows! Let's try not configuring any WebGL context attributes - we'll comment out where they are configures in the ````Canvas```` component:
+
+````javascript
+        this.contextAttr = cfg.contextAttr || {};
+        // this.contextAttr.alpha = this.transparent;
+        //
+        // this.contextAttr.preserveDrawingBuffer = !!this.contextAttr.preserveDrawingBuffer;
+        // this.contextAttr.stencil = false;
+        // this.contextAttr.premultipliedAlpha = (!!this.contextAttr.premultipliedAlpha);  // False by default: https://github.com/xeokit/xeokit-sdk/issues/251
+        // this.contextAttr.antialias = (this.contextAttr.antialias !== false);
+````
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test8/](https://xeokit.github.io/xeokit-perf-test/test8/)
+
 * [?]
