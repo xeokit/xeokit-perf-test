@@ -111,3 +111,31 @@ Test by drag-rotating with your finger.
 [https://xeokit.github.io/xeokit-perf-test/test8/](https://xeokit.github.io/xeokit-perf-test/test8/)
 
 * [?]
+
+### 9. Don't use scene graph Node and Mesh components  
+
+In these examples, xeokit uses its scene graph representation to model the ground plane, and it's performance 
+representation to model the buildings. Maybe the scene graph is what's slowing things down? Let's remove the ground 
+plane from the example.  
+
+````javascript
+//new Mesh(viewer.scene, {
+//    geometry: new ReadableGeometry(viewer.scene, buildPlaneGeometry({
+//        xSize: 15000,
+//        zSize: 15000
+//    })),
+//    material: new PhongMaterial(viewer.scene, {
+//        diffuse: [0.3, 0.5, 0.1],
+//        // alpha: 0.0,
+//        alphaMode: "opaque"
+//    }),
+//    position: [1842761.9375, -5.53293939639616, -5174733.5],
+//    collidable: false
+//});
+````
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test9/](https://xeokit.github.io/xeokit-perf-test/test9/)
+
+* [?]
