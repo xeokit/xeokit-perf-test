@@ -139,3 +139,14 @@ Test by drag-rotating with your finger.
 [https://xeokit.github.io/xeokit-perf-test/test9/](https://xeokit.github.io/xeokit-perf-test/test9/)
 
 * [?]
+
+### 10. Disable OES_element_index_uint
+
+Let's try disabling WebGL's 32-bit geometry indices support. This forces 16-bit indices, which means 
+smaller geometry buffers, meaning slowing rendering. 
+
+Test by drag-rotating with your finger.
+
+[https://xeokit.github.io/xeokit-perf-test/test10/](https://xeokit.github.io/xeokit-perf-test/test10/)
+
+* [?]
